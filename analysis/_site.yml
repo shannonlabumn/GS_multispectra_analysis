@@ -1,0 +1,17 @@
+name: "GS_multispectra_analysis"
+output_dir: ../docs
+navbar:
+  title: "GS_multispectra_analysis"
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: License
+    href: license.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
