@@ -22,8 +22,21 @@ knitr::opts_chunk$set(echo = TRUE, tidy=FALSE, prompt = TRUE, comment = NA, warn
 
 
 
+```{r}
+rm(list = ls())
 
-
+# Loading required packages
+library(tidyverse)
+library(plotly)
+library(GGally)
+library(caret)
+library(corrplot)
+library(tidymodels)
+library(desplot)
+library(StageWise)
+library(lme4)
+library(lme4GS)
+```
 
 
 ## Mixed model equation for spec canopyCover50
@@ -45,8 +58,16 @@ Estimate r/ship matrix based on spectra info
 Z1<-scale(pheno.cC50,center=TRUE,scale=TRUE)
 W1<-tcrossprod(Z1)/ncol(Z1)
 W1[1:4,1:4]
+save(W1, file = "./data/matrixspectchipcc50.rdata")
+```
+
+
+```{r}
+y <- as.vector(chips_spec_yield$yield)
+data=data.frame(y=y,w_id=rep(rownames(W),4),a_id=rep(rownames(A),4))
 
 ```
+
 
 plot spectra rlship matrix
 ```{r}
@@ -83,6 +104,7 @@ Estimate r/ship matrix based on spectra info
 Z2<-scale(pheno.cCf,center=TRUE,scale=TRUE)
 W2<-tcrossprod(Z2)/ncol(Z2)
 
+save(W2, file = "./data/matrixspectchipccfl.rdata")
 ```
 
 plot spectra rlship matrix
@@ -113,6 +135,8 @@ Estimate r/ship matrix based on spectra info
 ```{r}
 Z3<-scale(pheno.cpf,center=TRUE,scale=TRUE)
 W3<-tcrossprod(Z3)/ncol(Z3)
+
+save(W3, file = "./data/matrixspectchippeakfl.rdata")
 ```
 
 plot spectra rlship matrix
@@ -143,6 +167,8 @@ Estimate r/ship matrix based on spectra info
 ```{r}
 Z4<-scale(pheno.cvB,center=TRUE,scale=TRUE)
 W4<-tcrossprod(Z4)/ncol(Z4)
+
+save(W4, file = "./data/matrixspectchipvBio.rdata")
 ```
 
 plot spectra rlship matrix
@@ -172,6 +198,8 @@ Estimate r/ship matrix based on spectra info
 ```{r}
 Z5<-scale(pheno.cC50,center=TRUE,scale=TRUE)
 W5<-tcrossprod(Z5)/ncol(Z5)
+
+save(W5, file = "./data/matrixspectchipS1.rdata")
 ```
 
 plot spectra rlship matrix
@@ -202,6 +230,8 @@ Estimate r/ship matrix based on spectra info
 ```{r}
 Z6<-scale(pheno.cS2,center=TRUE,scale=TRUE)
 W6<-tcrossprod(Z6)/ncol(Z6)
+
+save(W6, file = "./data/matrixspectchipS2.rdata")
 ```
 
 plot spectra rlship matrix
@@ -210,6 +240,8 @@ par(mfrow=c(1,3))
 hist(W6[lower.tri(W1)], main='Off-diagonal values (lower-triangle) of the spectra r/ship')
 hist(diag(W6), main='Diagonals of the spectra r/ship', breaks=20)
 corrplot(W6, method="color", cl.pos="n", is.corr = F, tl.pos="n")
+
+my_palette <- colorRampPalette(c("white","yellow", "red"))(n = 100)
 
 ```
 
