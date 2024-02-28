@@ -80,10 +80,19 @@ pheno.cCf <- chips_spec2_yield %>%
 
 Estimate r/ship matrix based on spectra info
 ```{r}
-Z<-scale(pheno.cCf,center=TRUE,scale=TRUE)
-G<-tcrossprod(Z)/ncol(Z)
+Z2<-scale(pheno.cCf,center=TRUE,scale=TRUE)
+W2<-tcrossprod(Z2)/ncol(Z2)
+
 ```
 
+plot spectra rlship matrix
+```{r}
+par(mfrow=c(1,3))
+hist(W2[lower.tri(W2)], main='Off-diagonal values (lower-triangle) of the spectra r/ship at canopy cover flowering')
+hist(diag(W2), main='Diagonals of the spectra r/ship', breaks=20)
+corrplot(W2, method="color", cl.pos="n", is.corr = F, tl.pos="n")
+
+```
 
 ######################################################################################################################################################################################################################################################################################
 
@@ -95,16 +104,113 @@ load("./output/chipsSpecYieldBLUEscpeakfl.rdata")
 format data for r/ship matrix estimation
 ```{r}
 pheno.cpf <- chips_spec3_yield %>% 
-  select(-env, -yield) %>% 
+  dplyr::select(-env, -yield) %>% 
   column_to_rownames("id") %>% 
   as.matrix()
 ```
 
 Estimate r/ship matrix based on spectra info
 ```{r}
-Z<-scale(pheno.cpf,center=TRUE,scale=TRUE)
-G<-tcrossprod(Z)/ncol(Z)
+Z3<-scale(pheno.cpf,center=TRUE,scale=TRUE)
+W3<-tcrossprod(Z3)/ncol(Z3)
+```
+
+plot spectra rlship matrix
+```{r}
+par(mfrow=c(1,3))
+hist(W3[lower.tri(W3)], main='Off-diagonal values (lower-triangle) of the spectra r/ship')
+hist(diag(W3), main='Diagonals of the spectra r/ship', breaks=20)
+corrplot(W3, method="color", cl.pos="n", is.corr = F, tl.pos="n")
+
 ```
 
 
 ######################################################################################################################################################################################################################################################################################
+## Mixed model equation for spec vineBiomass
+```{r}
+load("./output/chipsSpecYieldBLUEscvineBiom.rdata")
+```
+
+format data for r/ship matrix estimation
+```{r}
+pheno.cvB <- chips_spec4_yield %>% 
+  dplyr::select(-env, -yield) %>% 
+  column_to_rownames("id") %>% 
+  as.matrix()
+```
+
+Estimate r/ship matrix based on spectra info
+```{r}
+Z4<-scale(pheno.cvB,center=TRUE,scale=TRUE)
+W4<-tcrossprod(Z4)/ncol(Z4)
+```
+
+plot spectra rlship matrix
+```{r}
+par(mfrow=c(1,3))
+hist(W4[lower.tri(W4)], main='Off-diagonal values (lower-triangle) of the spectra r/ship')
+hist(diag(W4), main='Diagonals of the spectra r/ship', breaks=20)
+corrplot(W4, method="color", cl.pos="n", is.corr = F, tl.pos="n")
+
+```
+
+######################################################################################################################################################################################################################################################################################
+## Mixed model equation for spec senecense1
+```{r}
+load("./output/chipsSpecYieldBLUEscS1.rdata")
+```
+
+format data for r/ship matrix estimation
+```{r}
+pheno.cS1 <- chips_spec5_yield %>% 
+  dplyr::select(-env, -yield) %>% 
+  column_to_rownames("id") %>% 
+  as.matrix()
+```
+
+Estimate r/ship matrix based on spectra info
+```{r}
+Z5<-scale(pheno.cC50,center=TRUE,scale=TRUE)
+W5<-tcrossprod(Z5)/ncol(Z5)
+```
+
+plot spectra rlship matrix
+```{r}
+par(mfrow=c(1,3))
+hist(W5[lower.tri(W5)], main='Off-diagonal values (lower-triangle) of the spectra r/ship')
+hist(diag(W5), main='Diagonals of the spectra r/ship', breaks=20)
+corrplot(W5, method="color", cl.pos="n", is.corr = F, tl.pos="n")
+
+```
+
+######################################################################################################################################################################################################################################################################################
+## Mixed model equation for spec senecense2
+```{r}
+load("./output/chipsSpecYieldBLUEscS2.rdata")
+```
+
+
+format data for r/ship matrix estimation
+```{r}
+pheno.cS2 <- chips_spec6_yield %>% 
+  dplyr::select(-env, -yield) %>% 
+  column_to_rownames("id") %>% 
+  as.matrix()
+```
+
+Estimate r/ship matrix based on spectra info
+```{r}
+Z6<-scale(pheno.cS2,center=TRUE,scale=TRUE)
+W6<-tcrossprod(Z6)/ncol(Z6)
+```
+
+plot spectra rlship matrix
+```{r}
+par(mfrow=c(1,3))
+hist(W6[lower.tri(W1)], main='Off-diagonal values (lower-triangle) of the spectra r/ship')
+hist(diag(W6), main='Diagonals of the spectra r/ship', breaks=20)
+corrplot(W6, method="color", cl.pos="n", is.corr = F, tl.pos="n")
+
+```
+
+
